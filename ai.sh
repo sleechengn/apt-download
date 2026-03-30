@@ -6,13 +6,13 @@ VER_T=$(cat /etc/os-release |grep "^VERSION_ID="|tr -d \"|awk -F = '{print $2}')
 ROOT_DIR=$(realpath $(pwd))/debs/$OSS_T/$VER_T
 
 if [ -e $ROOT_DIR/$ROOT_PACK/dependencies.txt ]; then
-	echo $ROOT_DIR/debs/$ROOT_PACK/dependencies.txt
-	for pack in $(cat $ROOT_DIR/debs/$ROOT_PACK/dependencies.txt); do
+	echo $ROOT_DIR/$ROOT_PACK/dependencies.txt
+	for pack in $(cat $ROOT_DIR/$ROOT_PACK/dependencies.txt); do
 		if [ "$(dpkg -l|awk '{print $2}'|grep -x $pack)" ]; then
 			echo "exist pack $pack"
 		else
 			echo "install $pack"
-			dpkg -i $ROOT_DIR/debs/$pack/*.deb
+			dpkg -i $ROOT_DIR/$pack/*.deb
 		fi
 	done
 else
