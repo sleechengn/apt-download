@@ -4,7 +4,7 @@ echo "root pack:$1"
 ROOT_PACK=$1
 OSS_T=$(cat /etc/os-release |grep "^ID="|tr -d \"|awk -F = '{print $2}')
 VER_T=$(cat /etc/os-release |grep "^VERSION_ID="|tr -d \"|awk -F = '{print $2}')
-ROOT_DIR=$(realpath $(dirname $0))/debs/$OSS_T/$VER_T
+ROOT_DIR=$(realpath $(pwd))/debs/$OSS_T/$VER_T
 mkdir -p $ROOT_DIR
 
 function download {
