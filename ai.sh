@@ -1,7 +1,9 @@
 #!/usr/bin/bash
 
 ROOT_PACK=$1
-ROOT_DIR=$(realpath $(dirname $0))
+OSS_T=$(cat /etc/os-release |grep "^ID="|tr -d \"|awk -F = '{print $2}')
+VER_T=$(cat /etc/os-release |grep "^VERSION_ID="|tr -d \"|awk -F = '{print $2}')
+ROOT_DIR=$(realpath $(pwd))/debs/$OSS_T/$VER_T
 
 if [ -e $ROOT_DIR/debs/$ROOT_PACK/dependencies.txt ]; then
 	echo $ROOT_DIR/debs/$ROOT_PACK/dependencies.txt
