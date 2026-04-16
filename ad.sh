@@ -18,7 +18,8 @@ function download {
 			mkdir -p $TMP_DIR
 		fi
 		cd $TMP_DIR
-		apt download $CURRD
+		apt-cache madison $CURRD|awk -F "|" '{print $2}'|tr -d ' '|uniq|xargs -i apt download $CURRD={}
+		#apt download $CURRD
 		dl_status=$?
 		echo $dl_status
 		if [ $dl_status -eq 0 ]; then
