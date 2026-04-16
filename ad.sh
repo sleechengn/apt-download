@@ -24,7 +24,7 @@ function download {
 		echo $dl_status
 		if [ $dl_status -eq 0 ]; then
 			cd $ROOT_DIR
-			mv $TMP_DIR $ROOT_DIR
+			mv $TMP_DIR $ROOT_DIR &
 		else
 			echo "download failure $CURRD"
 		fi
