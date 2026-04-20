@@ -26,7 +26,7 @@ function download {
 	if [ ! -e $PACK_DIR ]; then
 		echo "will download $CURRD"
 		cd $TMP_DIR
-		apt-cache madison $CURRD|awk -F "|" '{print $2}'|tr -d ' '|uniq|xargs -i wnload $CURRD={}
+		apt-cache madison $CURRD|awk -F "|" '{print $2}'|tr -d ' '|uniq|xargs -i apt download $CURRD={}
 		#apt download $CURRD
 		dl_status=$?
 		echo $dl_status
