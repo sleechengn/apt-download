@@ -52,7 +52,7 @@ function download {
 				dl_status=$?
 				echo $dl_status
 					if [ $dl_status -eq 0 ]; then
-					mv $TMP_DIR/*.deb $ROOT_DIR &
+					mv $TMP_DIR/*.deb $PACK_DIR &
 					else
 					echo "download failure $CURRD"
 					rm -rf $TMP_DIR/*.deb
