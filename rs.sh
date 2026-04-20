@@ -20,11 +20,11 @@ function download {
 	PACK_DIR=$ROOT_DIR/$CURRD
 	TMP_DIR=$ROOT_DIR/tmp/$$/$CURRD
 	rm -rf $TMP_DIR
+	if [ ! -e $TMP_DIR ]; then
+		mkdir -p $TMP_DIR
+	fi
 	if [ ! -e $PACK_DIR ]; then
 		echo "will download $CURRD"
-		if [ ! -e $TMP_DIR ]; then
-			mkdir -p $TMP_DIR
-		fi
 		cd $TMP_DIR
 		apt-cache madison $CURRD|awk -F "|" '{print $2}'|tr -d ' '|uniq|xargs -i wnload $CURRD={}
 		#apt download $CURRD
@@ -39,9 +39,6 @@ function download {
 		cd $ROOT_DIR
 	else
 		echo "exist $CURRD update"
-		if [ ! -e $TMP_DIR ]; then
-			mkdir -p $TMP_DIR
-		fi
 		
 
 		apt-cache madison $CURRD|awk -F "|" '{print $2}'|tr -d ' '|uniq| while IFS= read -r line
