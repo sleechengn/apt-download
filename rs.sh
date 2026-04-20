@@ -7,14 +7,6 @@ VER_T=$(cat /etc/os-release |grep "^VERSION_ID="|tr -d \"|awk -F = '{print $2}')
 ROOT_DIR=$(realpath $(pwd))/debs/$OSS_T/$VER_T
 mkdir -p $ROOT_DIR
 
-function downloadversion {
-	TMP_DIR=$1
-	PACK_DIR=$ROOT_DIR/$3
-	PACK=$2
-	PACK_VER=$3
-	find $PACK_DIR/*.deb |xargs -i dpkg -I {}
-}
-
 function download {
 	CURRD=$1
 	PACK_DIR=$ROOT_DIR/$CURRD
@@ -38,19 +30,17 @@ function download {
 		fi
 		cd $ROOT_DIR
 	else
-		echo "exist $CURRD update"
-		
-
+		echo "pack $CURRD update"
 		apt-cache madison $CURRD|awk -F "|" '{print $2}'|tr -d ' '|uniq| while IFS= read -r line
 		do
 			if [ "$(find $PACK_DIR|grep -F .deb|xargs -i dpkg -I {}|grep Version|awk '{print $2}'|grep -x $line)" ]; then
-				echo "存在 $line"
+				echo "exist $CURRD=$line"
 			else
-			cd $TMP_DIR
-				echo "download $line"
+				cd $TMP_DIR
+				echo "get $CURRD=$line"
 				apt download $CURRD=$line
 				dl_status=$?
-				echo $dl_status
+					echo $dl_status
 					if [ $dl_status -eq 0 ]; then
 					mv $TMP_DIR/*.deb $PACK_DIR &
 					else
