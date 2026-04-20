@@ -19,7 +19,6 @@ function download {
 		echo "will download $CURRD"
 		cd $TMP_DIR
 		apt-cache madison $CURRD|awk -F "|" '{print $2}'|tr -d ' '|uniq|xargs -i apt download $CURRD={}
-		#apt download $CURRD
 		dl_status=$?
 		echo $dl_status
 		if [ $dl_status -eq 0 ]; then
@@ -36,16 +35,16 @@ function download {
 			if [ "$(find $PACK_DIR|grep -F .deb|xargs -i dpkg -I {}|grep Version|awk '{print $2}'|grep -x $line)" ]; then
 				echo "exist $CURRD=$line"
 			else
-				cd $TMP_DIR
-				echo "get $CURRD=$line"
-				apt download $CURRD=$line
-				dl_status=$?
+					cd $TMP_DIR
+					echo "get $CURRD=$line"
+					apt download $CURRD=$line
+					dl_status=$?
 					echo $dl_status
 					if [ $dl_status -eq 0 ]; then
-					mv $TMP_DIR/*.deb $PACK_DIR &
+						mv $TMP_DIR/*.deb $PACK_DIR &
 					else
-					echo "download failure $CURRD"
-					rm -rf $TMP_DIR/*.deb
+						echo "download failure $CURRD"
+						rm -rf $TMP_DIR/*.deb
 					fi
 			fi
 		done
