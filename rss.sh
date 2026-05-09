@@ -1,5 +1,5 @@
 #!/usr/bin/bash
 while [ $# -gt 0 ]; do
-    ./rs.sh $1
+    $(dirname $0)/rs.sh $1
     shift
 done
