@@ -9,8 +9,9 @@ mkdir -p $ROOT_DIR
 
 function download {
 	CURRD=$1
-	PACK_DIR=$ROOT_DIR/$CURRD
-	TMP_DIR=$ROOT_DIR/tmp/$$/$CURRD
+	PACK_DIR_NAME=$(echo $CURRD|sed 's/:/%3A/g')
+	PACK_DIR=$ROOT_DIR/$PACK_DIR_NAME
+	TMP_DIR=$ROOT_DIR/tmp/$$/$PACK_DIR_NAME
 	rm -rf $TMP_DIR
 	if [ ! -e $PACK_DIR ]; then
 		echo "will download $CURRD"
