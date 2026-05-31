@@ -10,7 +10,7 @@ for f in $TARGET/*.deb; do
 	pack_dir=$(echo $pack|sed 's/:/%3A/g')
 	fn=$(echo $f|awk -F "/" '{print $NF}')
 
-	echo "new request ----------------------------------------------------------"
+	echo "new request----------------------------------------------------------"
 	echo "current file: $fn"
 	echo "current package: $pack"
 	echo "pack dir: $pack_dir"
