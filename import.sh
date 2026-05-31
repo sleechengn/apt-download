@@ -9,17 +9,17 @@ for f in $TARGET/*.deb; do
 	pack=$(dpkg -I $f|grep "Package:"|awk '{print $2}')
 	pack_dir=$(echo $pack|sed 's/:/%3A/g')
 	fn=$(echo $f|awk -F "/" '{print $NF}')
-	echo "处理文件：$fn"
 	if [ -e "$(dirname $0)/debs/$OSS_T/$VER_T/$pack_dir" ]; then
-		echo "已经存在包:$pack_dir"
 		if [ -e "$(dirname $0)/debs/$OSS_T/$VER_T/$pack_dir/$fn" ]; then
-			echo "已经存在:$fn"
-			else
+			echo "exist: $fn"
+		else
 			cp -ra $f $(dirname $0)/debs/$OSS_T/$VER_T/$pack_dir
+			echo "import: $f"
 		fi
 	else
 		mkdir $(dirname $0)/debs/$OSS_T/$VER_T/$pack_dir
 		cp -ra $f $(dirname $0)/debs/$OSS_T/$VER_T/$pack_dir
+		echo "import: $f"
 	fi
 done
 fi
