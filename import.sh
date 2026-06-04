@@ -6,7 +6,7 @@ VER_T=$(cat /etc/os-release |grep "^VERSION_ID="|tr -d \"|awk -F = '{print $2}')
 
 if [ "$TARGET" ]; then
 for f in $TARGET/*.deb; do
-	pack=$(dpkg -I $f|grep "Package:"|grep -v "Auto-Built-Package"|awk '{print $2}')
+	pack=$(dpkg -I $f|grep "^\\s*Package:.*"|grep -v "Auto-Built-Package"|awk '{print $2}')
 	pack_dir=$(echo $pack|sed 's/:/%3A/g')
 	fn=$(echo $f|awk -F "/" '{print $NF}')
 
