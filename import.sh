@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -e
 TARGET=$1
+if [ ! "$TARGET" ]; then
+	TARGET=/var/cache/apt/archives
+fi
 OSS_T=$(cat /etc/os-release |grep "^ID="|tr -d \"|awk -F = '{print $2}')
 VER_T=$(cat /etc/os-release |grep "^VERSION_ID="|tr -d \"|awk -F = '{print $2}')
 
